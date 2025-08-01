@@ -377,6 +377,12 @@ body {
     border: 1px solid rgba(255,0,240,0.3);
 }
 
+.Instagram {
+    background: rgba(255,0,240,0.1);
+    color: #cc00ff;
+    border: 1px solid rgba(255,0,240,0.3);
+}
+
 .contact-card:hover .contact-icon {
     transform: scale(1.1);
 }
