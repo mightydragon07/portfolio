@@ -1,96 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script defer src="/_vercel/insights/script.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1.1.2/new.min.css"
-    />
-    <title>Vercel HTML Starter</title>
-    <meta
-      name="description"
-      content="High-performance HTML based website template."
-    />
-  </head>
-  <body>
-    <h1>Vercel HTML Starter</h1>
-    <p>
-      This template is a simple, but powerful single
-      <code>index.html</code> file deployed to
-      <a href="https://vercel.com">Vercel</a>. When your site is deployed, all
-      static assets (like HTML, JavaScript, CSS, images, and more) are deployed
-      globally to every
-      <a href="https://vercel.com/docs/concepts/edge-network/overview"
-        >Vercel Edge Network</a
-      >
-      region.
-    </p>
-    <h2>Simple, privacy-friendly analytics</h2>
-    <p>
-      Want to understand your visitor traffic? Vercel Analytics gives you
-      first-party, privacy-friendly traffic analytics for your HTML site. This
-      template is already configured using the following script:
-    </p>
-    <pre><code>&lt;script defer src="/_vercel/insights/script.js"&gt;&lt;/script&gt;</code></pre>
-    <p>
-      Learn more about
-      <a href="https://vercel.com/analytics">Vercel Analytics</a>.
-    </p>
-    <h2>Integrated with git</h2>
-    <p>
-      Deploying updates to your site is as simple as
-      <code>git push</code> thanks to Vercel's advanced
-      <a href="https://vercel.com/docs/concepts/git">Git Integration</a>.
-      Support for GitHub, GitLab, Bitbucket is zero-configuration, and with the
-      flexible Vercel CLI and API, you can integrate with any tool possible.
-    </p>
-    <p>
-      Learn more about
-      <a href="https://vercel.com/docs/concepts/git">Git Integration</a>.
-    </p>
-    <h2>Fast <code>gzip</code> compression</h2>
-    <p>
-      To help ensure the smallest possible file sizes for your static assets,
-      the Vercel Edge Network compresses files by default using
-      <code>gzip</code>. You can also optionally use
-      <code>brotli</code> compressesion if you prefer.
-    </p>
-    <p>
-      Learn more about
-      <a href="https://vercel.com/docs/concepts/edge-network/compression"
-        >compression</a
-      >.
-    </p>
-    <h2>Advanced routing configuration</h2>
-    <p>
-      Vercel gives you a variety of ways to configure the routing of your
-      website. For example, adding redirects, rewrites, or headers to your page.
-      While you can use <code>vercel.json</code> to define these through JSON,
-      you can also express your routing configuration as code using
-      <a href="https://vercel.com/docs/concepts/functions/edge-middleware"
-        >Vercel Edge Middleware</a
-      >.
-    </p>
-    <p>
-      Middleware runs before the
-      <a href="https://vercel.com/docs/concepts/edge-network/caching"
-        >Vercel Edge Network Cache</a
-      >, so you can configure routing exactly as your application needs. For
-      example, this template uses <code>middleware.js</code> defined in the root
-      of the repository to add additional security headers to the site:
-    </p>
-    <pre><code>referrer-policy: origin-when-cross-origin
-strict-transport-security: max-age=31536000; includeSubDomains; preload
-x-content-type-options: nosniff
-x-dns-prefetch-control: on
-x-frame-options: DENY</code></pre>
-    <p>
-      Learn more about
-      <a href="https://vercel.com/docs/concepts/functions/edge-middleware"
-        >Vercel Edge Middleware</a
-      >.
-    </p>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semika Anusara | Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="grid-lines"></div>
+    
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">SA</div>
+            <ul class="nav-links">
+                <li><a href="#welcome-section" class="nav-item"><i class="fas fa-home"></i> <span>Home</span></a></li>
+                <li><a href="#projects" class="nav-item"><i class="fas fa-code"></i> <span>Projects</span></a></li>
+                <li><a href="#contact" class="nav-item"><i class="fas fa-envelope"></i> <span>Contact</span></a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="welcome-section">
+        <div class="digital-bg"></div>
+        <div class="welcome-content">
+            <h1 class="glitch-text">Semika Anusara</h1>
+            <div class="typewriter">
+                <p class="subtitle">Front-End Developer & UI Specialist</p>
+            </div>
+            <div class="tech-icons">
+                <div class="icon-box"><i class="fab fa-html5"></i></div>
+                <div class="icon-box"><i class="fab fa-css3-alt"></i></div>
+                <div class="icon-box"><i class="fab fa-js"></i></div>
+                <div class="icon-box"><i class="fab fa-react"></i></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2 class="section-title">Featured <span>Projects</span></h2>
+        <div class="projects-grid">
+            <div class="project-tile project-card"> <!-- Added project-tile class here -->
+                <div class="project-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3 class="project-title">Data Dashboard</h3>
+                <p class="project-desc">Interactive analytics platform with real-time visualization</p>
+                <a href="#" class="project-btn">View Project <i class="fas fa-arrow-right"></i></a>
+                <div class="project-hover"></div>
+            </div>
+            
+            <div class="project-tile project-card"> <!-- Added project-tile class here -->
+                <div class="project-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <h3 class="project-title">Mobile App UI</h3>
+                <p class="project-desc">Fully responsive fitness application interface</p>
+                <a href="#" class="project-btn">View Project <i class="fas fa-arrow-right"></i></a>
+                <div class="project-hover"></div>
+            </div>
+            
+            <div class="project-tile project-card"> <!-- Added project-tile class here -->
+                <div class="project-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <h3 class="project-title">E-Commerce Platform</h3>
+                <p class="project-desc">Modern online store with payment integration</p>
+                <a href="#" class="project-btn">View Project <i class="fas fa-arrow-right"></i></a>
+                <div class="project-hover"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2 class="section-title">Get In <span>Touch</span></h2>
+        <div class="contact-container">
+            <a id="profile-link" href="https://github.com" target="_blank" class="contact-card">
+                <div class="contact-icon github">
+                    <i class="fab fa-github"></i>
+                </div>
+                <span>GitHub</span>
+            </a>
+            <a href="https://linkedin.com" target="_blank" class="contact-card">
+                <div class="contact-icon linkedin">
+                    <i class="fab fa-linkedin-in"></i>
+                </div>
+                <span>LinkedIn</span>
+            </a>
+            <a href="mailto:email@example.com" class="contact-card">
+                <div class="contact-icon email">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <span>Email</span>
+            </a>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
 </html>
