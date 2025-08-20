@@ -1,4 +1,4 @@
-// Create lightning effect with JavaScript
+// Create lightning effect
 function createLightning() {
     const lightningContainer = document.querySelector('.lightning-container');
     const thunderOverlay = document.querySelector('.thunder-overlay');
@@ -11,55 +11,29 @@ function createLightning() {
         const posX = Math.random() * 100;
         lightning.style.left = posX + 'vw';
         
-        // Random height
-        const height = 100 + Math.random() * 100;
-        lightning.style.height = height + 'px';
+        // Random delay
+        const delay = Math.random() * 5;
+        lightning.style.animationDelay = delay + 's';
         
         lightningContainer.appendChild(lightning);
-        
-        // Animate lightning with JavaScript
-        let opacity = 0;
-        let growing = true;
-        
-        const animateLightning = () => {
-            if (growing) {
-                opacity += 0.1;
-                if (opacity >= 0.8) growing = false;
-            } else {
-                opacity -= 0.05;
-                if (opacity <= 0) {
-                    if (lightning.parentNode) {
-                        lightning.parentNode.removeChild(lightning);
-                    }
-                    return;
-                }
-            }
-            
-            lightning.style.opacity = opacity;
-            requestAnimationFrame(animateLightning);
-        };
-        
-        animateLightning();
         
         // Create thunder effect
         if (Math.random() > 0.7) {
             // Flash the screen
-            let flashOpacity = 0.3;
-            thunderOverlay.style.backgroundColor = `rgba(255, 255, 255, ${flashOpacity})`;
+            thunderOverlay.style.backgroundColor = 'rgba(255, 255, 255, 0.3)';
             
-            // Animate flash out
-            const animateFlash = () => {
-                flashOpacity -= 0.05;
-                if (flashOpacity <= 0) {
-                    thunderOverlay.style.backgroundColor = 'rgba(255, 255, 255, 0)';
-                    return;
-                }
-                thunderOverlay.style.backgroundColor = `rgba(255, 255, 255, ${flashOpacity})`;
-                requestAnimationFrame(animateFlash);
-            };
-            
-            animateFlash();
+            // Remove flash after short delay
+            setTimeout(() => {
+                thunderOverlay.style.backgroundColor = 'rgba(255, 255, 255, 0)';
+            }, 100);
         }
+        
+        // Remove after animation completes
+        setTimeout(() => {
+            if (lightning.parentNode) {
+                lightning.parentNode.removeChild(lightning);
+            }
+        }, 5000);
     }
     
     // Create multiple lightning bolts
@@ -93,39 +67,21 @@ function initFireDrops() {
             const tx = (Math.random() - 0.5) * 100;
             const ty = (Math.random() - 0.5) * 100;
             
-            // Animate with JavaScript
-            let progress = 0;
-            const startX = e.pageX;
-            const startY = e.pageY;
+            // Apply animation
+            fireDrop.style.setProperty('--tx', tx + 'px');
+            fireDrop.style.setProperty('--ty', ty + 'px';
             
-            const animateDrop = () => {
-                progress += 0.02;
-                if (progress >= 1) {
-                    if (fireDrop.parentNode) {
-                        fireDrop.parentNode.removeChild(fireDrop);
-                    }
-                    return;
+            // Remove element after animation completes
+            setTimeout(() => {
+                if (fireDrop.parentNode) {
+                    fireDrop.parentNode.removeChild(fireDrop);
                 }
-                
-                const currentX = startX + tx * progress;
-                const currentY = startY + ty * progress;
-                const scale = 1 - progress * 0.8;
-                const opacity = 1 - progress;
-                
-                fireDrop.style.left = currentX + 'px';
-                fireDrop.style.top = currentY + 'px';
-                fireDrop.style.transform = `scale(${scale})`;
-                fireDrop.style.opacity = opacity;
-                
-                requestAnimationFrame(animateDrop);
-            };
-            
-            animateDrop();
+            }, 1000);
         }
     });
 }
 
-// Create electric particles background with JavaScript
+// Create electric particles background
 function createParticles() {
     const particlesContainer = document.querySelector('.electric-particles');
     const particlesCount = 50;
@@ -138,73 +94,32 @@ function createParticles() {
         const size = Math.random() * 5 + 2;
         const posX = Math.random() * 100;
         const posY = Math.random() * 100;
+        const delay = Math.random() * 15;
         const duration = Math.random() * 10 + 15;
         
         particle.style.width = size + 'px';
         particle.style.height = size + 'px';
         particle.style.left = posX + 'vw';
         particle.style.top = posY + 'vh';
+        particle.style.animationDelay = delay + 's';
+        particle.style.animationDuration = duration + 's';
         
         particlesContainer.appendChild(particle);
-        
-        // Animate particle with JavaScript
-        let time = 0;
-        const startX = posX;
-        const startY = posY;
-        
-        const animateParticle = () => {
-            time += 0.01;
-            if (time >= duration) time = 0;
-            
-            const x = startX + Math.sin(time) * 10;
-            const y = startY + Math.cos(time) * 10;
-            
-            particle.style.left = x + 'vw';
-            particle.style.top = y + 'vh';
-            
-            requestAnimationFrame(animateParticle);
-        };
-        
-        animateParticle();
     }
 }
 
-// Sliding text animation with JavaScript
-function initSlidingText() {
-    const slidingWrapper = document.querySelector('.sliding-text-wrapper');
-    const texts = document.querySelectorAll('.sliding-text');
-    let currentIndex = 0;
-    
-    function slideText() {
-        // Move to next text
-        currentIndex = (currentIndex + 1) % texts.length;
-        
-        // Animate the slide
-        slidingWrapper.style.transition = 'transform 1s ease-in-out';
-        slidingWrapper.style.transform = `translateY(-${currentIndex * 60}px)`;
-        
-        // Schedule next slide
-        setTimeout(slideText, 3000);
-    }
-    
-    // Start the animation
-    setTimeout(slideText, 2000);
-}
-
-// Glitch text effect with JavaScript
+// Glitch text effect
 function initGlitchEffect() {
     const glitchText = document.querySelector('.glitch-text');
     
     setInterval(() => {
         if (Math.random() < 0.1) {
-            // Add glitch effect
             glitchText.style.textShadow = `
                 0.05em 0 0 rgba(255, 0, 0, 0.5),
                 -0.05em -0.025em 0 rgba(0, 255, 0, 0.5),
                 -0.025em 0.05em 0 rgba(0, 0, 255, 0.5)
             `;
             
-            // Remove glitch after short delay
             setTimeout(() => {
                 glitchText.style.textShadow = '0 0 20px rgba(0, 240, 255, 0.5)';
             }, 150);
@@ -212,27 +127,15 @@ function initGlitchEffect() {
     }, 5000);
 }
 
-// Animate skill bars with JavaScript
+// Animate skill bars
 function animateSkills() {
     const skillBars = document.querySelectorAll('.skill-progress');
     
     skillBars.forEach(bar => {
         const width = bar.getAttribute('data-width');
-        let progress = 0;
-        
-        const animateBar = () => {
-            progress += 2;
-            if (progress >= parseInt(width)) {
-                bar.style.width = width;
-                return;
-            }
-            
-            bar.style.width = progress + '%';
-            requestAnimationFrame(animateBar);
-        };
-        
-        // Start animation with a delay
-        setTimeout(animateBar, 500);
+        setTimeout(() => {
+            bar.style.width = width;
+        }, 500);
     });
 }
 
@@ -240,7 +143,6 @@ function animateSkills() {
 document.addEventListener('DOMContentLoaded', function() {
     createLightning();
     createParticles();
-    initSlidingText();
     initGlitchEffect();
     initFireDrops();
     animateSkills();
