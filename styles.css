@@ -310,7 +310,6 @@ p {
 
 .nav-links {
     display: flex;
-    align-items: center;
     gap: 2rem;
     list-style: none;
 }
@@ -846,7 +845,7 @@ footer {
 /* Mobile Responsive Design */
 @media (max-width: 1024px) {
     .nav-links {
-        align-items: center;
+       align-items: center;
     }
     
     .glitch-text {
@@ -884,13 +883,13 @@ footer {
     }
     
     .nav-menu.active {
+        right: 0;
     }
     
     .nav-links {
         flex-direction: column;
         gap: 2rem;
         text-align: center;
-        align-items: center;
     }
     
     .nav-item {
