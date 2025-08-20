@@ -3,36 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Semika Anusara | Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Semika Anusara | Futuristic Portfolio</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="grid-lines"></div>
+    <div class="lightning-container"></div>
+    <div class="electric-particles"></div>
+    <div class="thunder-overlay"></div>
     
     <nav id="navbar">
         <div class="nav-container">
-            <div class="logo">SA</div>
+            <div class="logo">
+                <div class="dragon-logo">
+                    <svg width="50" height="50" viewBox="0 0 100 100">
+                        <path d="M50,15 C60,10 75,15 80,25 C85,35 80,45 70,50 C80,55 85,65 80,75 C75,85 60,90 50,85 C40,90 25,85 20,75 C15,65 20,55 30,50 C20,45 15,35 20,25 C25,15 40,10 50,15 Z" 
+                              fill="none" stroke="#00f0ff" stroke-width="3"/>
+                        <path d="M40,30 C45,25 55,25 60,30" fill="none" stroke="#00f0ff" stroke-width="2"/>
+                        <path d="M40,35 C45,30 55,30 60,35" fill="none" stroke="#00f0ff" stroke-width="2"/>
+                        <path d="M30,40 C35,30 65,30 70,40" fill="none" stroke="#00f0ff" stroke-width="2"/>
+                        <path d="M25,50 C30,40 70,40 75,50" fill="none" stroke="#00f0ff" stroke-width="2"/>
+                        <path d="M25,60 C30,50 70,50 75,60" fill="none" stroke="#00f0ff" stroke-width="2"/>
+                        <path d="M30,70 C35,60 65,60 70,70" fill="none" stroke="#00f0ff" stroke-width="2"/>
+                        <circle cx="40" cy="25" r="2" fill="#00f0ff"/>
+                        <circle cx="60" cy="25" r="2" fill="#00f0ff"/>
+                    </svg>
+                </div>
+            </div>
             <ul class="nav-links">
                 <li><a href="#welcome-section" class="nav-item"><i class="fas fa-home"></i> <span>Home</span></a></li>
+                <li><a href="#about" class="nav-item"><i class="fas fa-user"></i> <span>About</span></a></li>
                 <li><a href="#projects" class="nav-item"><i class="fas fa-code"></i> <span>Projects</span></a></li>
                 <li><a href="#contact" class="nav-item"><i class="fas fa-envelope"></i> <span>Contact</span></a></li>
             </ul>
+            <a href="#contact" class="talk-btn">Let's Talk</a>
         </div>
     </nav>
 
     <section id="welcome-section">
         <div class="digital-bg"></div>
         <div class="welcome-content">
+            <p class="welcome-text">Hello, I'm</p>
             <h1 class="glitch-text">SeMiKa AnUsArA</h1>
-            <div class="typewriter">
-                <p class="subtitle">Full Stack Webdev | Editor</p>
+            
+            <div class="sliding-text-container">
+                <div class="sliding-text-wrapper">
+                    <div class="sliding-text">Full Stack Webdev</div>
+                    <div class="sliding-text">AI Enthusiast</div>
+                    <div class="sliding-text">Editor</div>
+                </div>
             </div>
-            <div class="tech-icons">
-                <div class="icon-box"><i class="fab fa-html5"></i></div>
-                <div class="icon-box"><i class="fab fa-css3-alt"></i></div>
-                <div class="icon-box"><i class="fab fa-js"></i></div>
-                <div class="icon-box"><i class="fab fa-react"></i></div>
+            
+            <div class="welcome-buttons">
+                <a href="#projects" class="project-btn">View Projects <i class="fas fa-arrow-right"></i></a>
+                <a href="#contact" class="contact-btn">Contact Me <i class="fas fa-paper-plane"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2 class="section-title">About <span>Me</span></h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>I'm a passionate Full Stack Developer and Editor with a focus on creating immersive digital experiences. My expertise spans across modern web technologies and creative design.</p>
+                <p>With a keen eye for detail and a love for innovation, I bring ideas to life through code and creativity.</p>
+            </div>
+            <div class="skills">
+                <div class="skill">
+                    <h3>Web Development</h3>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-width="90%"></div>
+                    </div>
+                </div>
+                <div class="skill">
+                    <h3>UI/UX Design</h3>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-width="85%"></div>
+                    </div>
+                </div>
+                <div class="skill">
+                    <h3>Video Editing</h3>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-width="80%"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -40,7 +95,7 @@
     <section id="projects">
         <h2 class="section-title">Featured <span>Projects</span></h2>
         <div class="projects-grid">
-            <div class="project-tile project-card"> <!-- Added project-tile class here -->
+            <div class="project-tile project-card">
                 <div class="project-icon">
                     <i class="fas fa-chart-line"></i>
                 </div>
@@ -50,7 +105,7 @@
                 <div class="project-hover"></div>
             </div>
             
-            <div class="project-tile project-card"> <!-- Added project-tile class here -->
+            <div class="project-tile project-card">
                 <div class="project-icon">
                     <i class="fas fa-mobile-alt"></i>
                 </div>
@@ -60,7 +115,7 @@
                 <div class="project-hover"></div>
             </div>
             
-            <div class="project-tile project-card"> <!-- Added project-tile class here -->
+            <div class="project-tile project-card">
                 <div class="project-icon">
                     <i class="fas fa-shopping-cart"></i>
                 </div>
@@ -102,6 +157,33 @@
         </div>
     </section>
 
-    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <div class="dragon-logo-small">
+                    <svg width="40" height="40" viewBox="0 0 100 100">
+                        <path d="M50,15 C60,10 75,15 80,25 C85,35 80,45 70,50 C80,55 85,65 80,75 C75,85 60,90 50,85 C40,90 25,85 20,75 C15,65 20,55 30,50 C20,45 15,35 20,25 C25,15 40,10 50,15 Z" 
+                              fill="none" stroke="#00f0ff" stroke-width="2"/>
+                        <path d="M40,30 C45,25 55,25 60,30" fill="none" stroke="#00f0ff" stroke-width="1.5"/>
+                        <path d="M40,35 C45,30 55,30 60,35" fill="none" stroke="#00f0ff" stroke-width="1.5"/>
+                        <path d="M30,40 C35,30 65,30 70,40" fill="none" stroke="#00f0ff" stroke-width="1.5"/>
+                        <path d="M25,50 C30,40 70,40 75,50" fill="none" stroke="#00f0ff" stroke-width="1.5"/>
+                        <path d="M25,60 C30,50 70,50 75,60" fill="none" stroke="#00f0ff" stroke-width="1.5"/>
+                        <path d="M30,70 C35,60 65,60 70,70" fill="none" stroke="#00f0ff" stroke-width="1.5"/>
+                    </svg>
+                </div>
+            </div>
+            <p class="footer-text">Building digital experiences with cutting-edge technology</p>
+            <div class="footer-social">
+                <a href="https://github.com/mightydragon07" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/semika-anusara-13b00a214" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="mailto:semikaanusara3@gmail.com"><i class="fas fa-envelope"></i></a>
+                <a href="https://www.instagram.com/_z3m1ka_?igsh=dzh5bTd2eTV1MGtr&utm_source=qr" target="_blank"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p class="copyright">&copy; 2023 Semika Anusara. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
