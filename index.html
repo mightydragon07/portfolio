@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Semika Anusara | Futuristic Portfolio</title>
+    <title>Semika Anusara | Portfolio</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
@@ -17,7 +17,7 @@
         <div class="nav-container">
             <div class="logo">
                 <div class="dragon-logo">
-                    <svg width="50" height="50" viewBox="0 0 100 100">
+                    <svg width="45" height="45" viewBox="0 0 100 100">
                         <path d="M50,15 C60,10 75,15 80,25 C85,35 80,45 70,50 C80,55 85,65 80,75 C75,85 60,90 50,85 C40,90 25,85 20,75 C15,65 20,55 30,50 C20,45 15,35 20,25 C25,15 40,10 50,15 Z" 
                               fill="none" stroke="#00f0ff" stroke-width="3"/>
                         <path d="M40,30 C45,25 55,25 60,30" fill="none" stroke="#00f0ff" stroke-width="2"/>
@@ -30,24 +30,36 @@
                         <circle cx="60" cy="25" r="2" fill="#00f0ff"/>
                     </svg>
                 </div>
+                <span class="logo-text">Mighty Dragon</span>
             </div>
-            <ul class="nav-links">
-                <li><a href="#welcome-section" class="nav-item"><i class="fas fa-home"></i> <span>Home</span></a></li>
-                <li><a href="#about" class="nav-item"><i class="fas fa-user"></i> <span>About</span></a></li>
-                <li><a href="#projects" class="nav-item"><i class="fas fa-code"></i> <span>Projects</span></a></li>
-                <li><a href="#contact" class="nav-item"><i class="fas fa-envelope"></i> <span>Contact</span></a></li>
-            </ul>
-            <a href="#contact" class="talk-btn">Let's Talk</a>
+            
+            <button class="mobile-menu-toggle" aria-label="Toggle navigation menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <div class="nav-menu">
+                <ul class="nav-links">
+                    <li><a href="#welcome-section" class="nav-item"><i class="fas fa-home"></i> <span>Home</span></a></li>
+                    <li><a href="#about" class="nav-item"><i class="fas fa-user"></i> <span>About</span></a></li>
+                    <li><a href="#projects" class="nav-item"><i class="fas fa-code"></i> <span>Projects</span></a></li>
+                    <li><a href="#contact" class="nav-item"><i class="fas fa-envelope"></i> <span>Contact</span></a></li>
+                </ul>
+                <a href="#contact" class="talk-btn">Let's Talk</a>
+            </div>
         </div>
     </nav>
 
     <section id="welcome-section">
         <div class="digital-bg"></div>
         <div class="welcome-content">
-            <p class="welcome-text">Hello, I'm</p>
-            <h1 class="glitch-text">Semika Anusara</h1>
+            <div class="fade-in-up">
+                <p class="welcome-text">Hello, I'm</p>
+                <h1 class="glitch-text">Semika Anusara</h1>
+            </div>
             
-            <div class="sliding-text-container">
+            <div class="sliding-text-container fade-in-up" style="animation-delay: 0.3s;">
                 <div class="sliding-text-wrapper">
                     <div class="sliding-text">Full Stack Webdev</div>
                     <div class="sliding-text">AI Enthusiast</div>
@@ -55,21 +67,26 @@
                 </div>
             </div>
             
-            <div class="welcome-buttons">
+            <div class="welcome-buttons fade-in-up" style="animation-delay: 0.6s;">
                 <a href="#projects" class="project-btn">View Projects <i class="fas fa-arrow-right"></i></a>
                 <a href="#contact" class="contact-btn">Contact Me <i class="fas fa-paper-plane"></i></a>
             </div>
         </div>
+        
+        <div class="scroll-indicator">
+            <div class="scroll-line"></div>
+            <div class="scroll-dot"></div>
+        </div>
     </section>
 
     <section id="about">
-        <h2 class="section-title">About <span>Me</span></h2>
+        <h2 class="section-title fade-in-up">About <span>Me</span></h2>
         <div class="about-content">
-            <div class="about-text">
+            <div class="about-text fade-in-left">
                 <p>I'm a passionate Full Stack Developer and Editor with a focus on creating immersive digital experiences. My expertise spans across modern web technologies and creative design.</p>
                 <p>With a keen eye for detail and a love for innovation, I bring ideas to life through code and creativity.</p>
             </div>
-            <div class="skills">
+            <div class="skills fade-in-right">
                 <div class="skill">
                     <h3>Web Development</h3>
                     <div class="skill-bar">
@@ -93,9 +110,9 @@
     </section>
 
     <section id="projects">
-        <h2 class="section-title">Featured <span>Projects</span></h2>
+        <h2 class="section-title fade-in-up">Featured <span>Projects</span></h2>
         <div class="projects-grid">
-            <div class="project-tile project-card">
+            <div class="project-tile project-card fade-in-up" style="animation-delay: 0.1s;">
                 <div class="project-icon">
                     <i class="fas fa-chart-line"></i>
                 </div>
@@ -105,7 +122,7 @@
                 <div class="project-hover"></div>
             </div>
             
-            <div class="project-tile project-card">
+            <div class="project-tile project-card fade-in-up" style="animation-delay: 0.2s;">
                 <div class="project-icon">
                     <i class="fas fa-mobile-alt"></i>
                 </div>
@@ -115,7 +132,7 @@
                 <div class="project-hover"></div>
             </div>
             
-            <div class="project-tile project-card">
+            <div class="project-tile project-card fade-in-up" style="animation-delay: 0.3s;">
                 <div class="project-icon">
                     <i class="fas fa-shopping-cart"></i>
                 </div>
@@ -128,27 +145,27 @@
     </section>
 
     <section id="contact">
-        <h2 class="section-title">Get In <span>Touch</span></h2>
+        <h2 class="section-title fade-in-up">Get In <span>Touch</span></h2>
         <div class="contact-container">
-            <a id="profile-link" href="https://github.com/mightydragon07" target="_blank" class="contact-card">
+            <a id="profile-link" href="https://github.com/mightydragon07" target="_blank" class="contact-card fade-in-up" style="animation-delay: 0.1s;">
                 <div class="contact-icon github">
                     <i class="fab fa-github"></i>
                 </div>
                 <span>GitHub</span>
             </a>
-            <a href="https://www.linkedin.com/in/semika-anusara-13b00a214" target="_blank" class="contact-card">
+            <a href="https://www.linkedin.com/in/semika-anusara-13b00a214" target="_blank" class="contact-card fade-in-up" style="animation-delay: 0.2s;">
                 <div class="contact-icon linkedin">
                     <i class="fab fa-linkedin-in"></i>
                 </div>
                 <span>LinkedIn</span>
             </a>
-            <a href="mailto:semikaanusara3@gmail.com" class="contact-card">
+            <a href="mailto:semikaanusara3@gmail.com" class="contact-card fade-in-up" style="animation-delay: 0.3s;">
                 <div class="contact-icon email">
                     <i class="fas fa-envelope"></i>
                 </div>
                 <span>Email</span>
             </a>
-            <a href="https://www.instagram.com/_z3m1ka_?igsh=dzh5bTd2eTV1MGtr&utm_source=qr" class="contact-card">
+            <a href="https://www.instagram.com/_z3m1ka_?igsh=dzh5bTd2eTV1MGtr&utm_source=qr" class="contact-card fade-in-up" style="animation-delay: 0.4s;">
                 <div class="contact-icon Instagram">
                     <i class="fab fa-instagram"></i>
                 </div>
@@ -158,7 +175,7 @@
     </section>
 
     <footer>
-        <div class="footer-content">
+        <div class="footer-content fade-in-up">
             <div class="footer-logo">
                 <div class="dragon-logo-small">
                     <svg width="40" height="40" viewBox="0 0 100 100">
@@ -184,6 +201,6 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="animations.js"></script>
 </body>
 </html>
