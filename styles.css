@@ -17,6 +17,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 html {
@@ -704,10 +705,6 @@ p {
     gap: 1rem;
 }
 
-.project-card:hover .project-hover {
-    opacity: 1;
-}
-
 /* Contact Section */
 #contact {
     padding: 6rem 2rem;
@@ -964,6 +961,15 @@ footer {
         grid-template-columns: repeat(2, 1fr);
         gap: 1.5rem;
     }
+    
+    /* Prevent horizontal scroll on mobile */
+    body {
+        overflow-x: hidden;
+    }
+    
+    .welcome-content {
+        padding: 0 1rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1052,19 +1058,3 @@ footer {
 .contact-card:nth-child(2) { animation-delay: 0.2s; }
 .contact-card:nth-child(3) { animation-delay: 0.3s; }
 .contact-card:nth-child(4) { animation-delay: 0.4s; }
-
-/* Smooth transitions for all interactive elements */
-* {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* Prevent horizontal scroll on mobile */
-@media (max-width: 768px) {
-    body {
-        overflow-x: hidden;
-    }
-    
-    .welcome-content {
-        padding: 0 1rem;
-    }
-}
