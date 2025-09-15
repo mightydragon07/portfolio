@@ -1,23 +1,17 @@
-// Enhanced mobile detection
+// Mobile detection
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-const isLowEnd = navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4;
+const isTouch = 'ontouchstart' in window;
 
-// Performance flags
-let animationsEnabled = true;
-let particlesEnabled = true;
-
-// Create lightning effect (optimized for mobile)
+// Create lightning effect (reduced on mobile)
 function createLightning() {
     const lightningContainer = document.querySelector('.lightning-container');
     const thunderOverlay = document.querySelector('.thunder-overlay');
     
-    if (!lightningContainer || !thunderOverlay || !animationsEnabled) return;
+    if (!lightningContainer || !thunderOverlay) return;
     
     function addLightning() {
-        // Significantly reduce lightning on mobile and low-end devices
-        if (isMobile && Math.random() > 0.2) return;
-        if (isLowEnd && Math.random() > 0.1) return;
+        // Reduce lightning on mobile for performance
+        if (isMobile && Math.random() > 0.3) return;
         
         const lightning = document.createElement('div');
         lightning.className = 'lightning';
@@ -33,15 +27,15 @@ function createLightning() {
         lightningContainer.appendChild(lightning);
         
         // Create thunder effect (less frequent on mobile)
-        const thunderChance = isMobile ? 0.3 : isLowEnd ? 0.4 : 0.7;
+        const thunderChance = isMobile ? 0.5 : 0.7;
         if (Math.random() > thunderChance) {
             // Flash the screen
-            thunderOverlay.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+            thunderOverlay.style.backgroundColor = 'rgba(255, 255, 255, 0.3)';
             
             // Remove flash after short delay
             setTimeout(() => {
                 thunderOverlay.style.backgroundColor = 'rgba(255, 255, 255, 0)';
-            }, 80);
+            }, 100);
         }
         
         // Remove after animation completes
@@ -49,63 +43,54 @@ function createLightning() {
             if (lightning.parentNode) {
                 lightning.parentNode.removeChild(lightning);
             }
-        }, 4000);
+        }, 5000);
     }
     
     // Create multiple lightning bolts (fewer on mobile)
-    const lightningCount = isMobile ? 2 : isLowEnd ? 3 : 5;
+    const lightningCount = isMobile ? 3 : 5;
     for (let i = 0; i < lightningCount; i++) {
-        setTimeout(addLightning, i * 3000);
+        setTimeout(addLightning, i * 2000);
     }
     
     // Continue creating lightning periodically (less frequent on mobile)
-    const interval = isMobile ? 20000 : isLowEnd ? 15000 : 10000;
+    const interval = isMobile ? 15000 : 10000;
     setInterval(addLightning, interval);
 }
 
-// Enhanced fire drop animation (mobile-optimized)
+// Fire drop animation (optimized for mobile)
 function initFireDrops() {
-    // Enable on mobile but with reduced frequency
+    // Skip on mobile for better performance
+    if (isMobile) return;
+    
     let lastDrop = 0;
-    const throttleDelay = isMobile ? 100 : 50;
+    const throttleDelay = 50; // Throttle to prevent too many drops
     
     function handleMove(e) {
-        if (!animationsEnabled) return;
-        
         const now = Date.now();
         if (now - lastDrop < throttleDelay) return;
         
-        // Create drops less frequently on mobile
-        const dropChance = isMobile ? 0.15 : isLowEnd ? 0.2 : 0.3;
-        if (Math.random() > dropChance) return;
+        // Create drops less frequently
+        if (Math.random() > 0.3) return;
         
         const fireDrop = document.createElement('div');
         fireDrop.className = 'fire-drop';
         document.body.appendChild(fireDrop);
         
         // Position the fire drop at cursor/touch
-        let x, y;
-        if (e.touches && e.touches[0]) {
-            x = e.touches[0].pageX;
-            y = e.touches[0].pageY;
-        } else {
-            x = e.pageX || 0;
-            y = e.pageY || 0;
-        }
+        const x = e.pageX || (e.touches && e.touches[0].pageX) || 0;
+        const y = e.pageY || (e.touches && e.touches[0].pageY) || 0;
         
         fireDrop.style.left = x - 3 + 'px';
         fireDrop.style.top = y - 3 + 'px';
         
-        // Randomize size slightly (smaller on mobile)
-        const baseSize = isMobile ? 3 : 4;
-        const size = Math.random() * 3 + baseSize;
+        // Randomize size slightly
+        const size = Math.random() * 4 + 4;
         fireDrop.style.width = size + 'px';
         fireDrop.style.height = size + 'px';
         
-        // Randomize movement direction (reduced on mobile)
-        const moveRange = isMobile ? 50 : 100;
-        const tx = (Math.random() - 0.5) * moveRange;
-        const ty = (Math.random() - 0.5) * moveRange;
+        // Randomize movement direction
+        const tx = (Math.random() - 0.5) * 100;
+        const ty = (Math.random() - 0.5) * 100;
         
         // Apply animation
         fireDrop.style.setProperty('--tx', tx + 'px');
@@ -118,45 +103,33 @@ function initFireDrops() {
             if (fireDrop.parentNode) {
                 fireDrop.parentNode.removeChild(fireDrop);
             }
-        }, 800);
+        }, 1000);
     }
     
-    // Add both mouse and touch events with passive listeners
-    if (!isMobile) {
-        document.addEventListener('mousemove', handleMove, { passive: true });
-    }
-    
+    // Add both mouse and touch events
+    document.addEventListener('mousemove', handleMove);
     if (isTouch) {
         document.addEventListener('touchmove', handleMove, { passive: true });
-        document.addEventListener('touchstart', handleMove, { passive: true });
     }
 }
 
-// Create electric particles background (mobile-optimized)
+// Create electric particles background (reduced count on mobile)
 function createParticles() {
     const particlesContainer = document.querySelector('.electric-particles');
-    if (!particlesContainer || !particlesEnabled) return;
+    if (!particlesContainer) return;
     
-    // Significantly fewer particles on mobile and low-end devices
-    let particlesCount;
-    if (isMobile) {
-        particlesCount = 15;
-    } else if (isLowEnd) {
-        particlesCount = 25;
-    } else {
-        particlesCount = 50;
-    }
+    const particlesCount = isMobile ? 20 : 50; // Fewer particles on mobile
     
     for (let i = 0; i < particlesCount; i++) {
         const particle = document.createElement('div');
         particle.className = 'particle';
         
         // Randomize particle properties
-        const size = Math.random() * (isMobile ? 3 : 5) + 2;
+        const size = Math.random() * 5 + 2;
         const posX = Math.random() * 100;
         const posY = Math.random() * 100;
         const delay = Math.random() * 15;
-        const duration = Math.random() * (isMobile ? 8 : 10) + (isMobile ? 12 : 15);
+        const duration = Math.random() * 10 + 15;
         
         particle.style.width = size + 'px';
         particle.style.height = size + 'px';
@@ -169,43 +142,31 @@ function createParticles() {
     }
 }
 
-// Enhanced glitch text effect (mobile-optimized)
+// Glitch text effect (less intensive on mobile)
 function initGlitchEffect() {
     const glitchText = document.querySelector('.glitch-text');
-    if (!glitchText || !animationsEnabled) return;
+    if (!glitchText) return;
     
-    const interval = isMobile ? 12000 : isLowEnd ? 8000 : 5000;
+    const interval = isMobile ? 8000 : 5000; // Less frequent on mobile
     
     setInterval(() => {
-        if (Math.random() < 0.15) {
-            const intensity = isMobile ? 0.3 : 0.5;
+        if (Math.random() < 0.1) {
             glitchText.style.textShadow = `
-                ${0.05 * intensity}em 0 0 rgba(255, 0, 0, ${intensity}),
-                ${-0.05 * intensity}em ${-0.025 * intensity}em 0 rgba(0, 255, 0, ${intensity}),
-                ${-0.025 * intensity}em ${0.05 * intensity}em 0 rgba(0, 0, 255, ${intensity})
+                0.05em 0 0 rgba(255, 0, 0, 0.5),
+                -0.05em -0.025em 0 rgba(0, 255, 0, 0.5),
+                -0.025em 0.05em 0 rgba(0, 0, 255, 0.5)
             `;
             
             setTimeout(() => {
                 glitchText.style.textShadow = '0 0 20px rgba(0, 240, 255, 0.5)';
-            }, isMobile ? 100 : 150);
+            }, 150);
         }
     }, interval);
 }
 
-// Enhanced skill bars animation with intersection observer
+// Animate skill bars with intersection observer
 function animateSkills() {
     const skillBars = document.querySelectorAll('.skill-progress');
-    
-    if (!window.IntersectionObserver) {
-        // Fallback for older browsers
-        skillBars.forEach(bar => {
-            const width = bar.getAttribute('data-width');
-            setTimeout(() => {
-                bar.style.width = width;
-            }, 500);
-        });
-        return;
-    }
     
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -219,8 +180,7 @@ function animateSkills() {
             }
         });
     }, {
-        threshold: 0.3,
-        rootMargin: '0px 0px -20px 0px'
+        threshold: 0.5
     });
     
     skillBars.forEach(bar => {
@@ -228,17 +188,9 @@ function animateSkills() {
     });
 }
 
-// Enhanced scroll animations
+// Animate elements on scroll
 function initScrollAnimations() {
     const animatedElements = document.querySelectorAll('.fade-in-up, .fade-in-left, .fade-in-right');
-    
-    if (!window.IntersectionObserver) {
-        // Fallback for older browsers
-        animatedElements.forEach(element => {
-            element.style.animationPlayState = 'running';
-        });
-        return;
-    }
     
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -249,7 +201,7 @@ function initScrollAnimations() {
         });
     }, {
         threshold: 0.1,
-        rootMargin: '0px 0px -30px 0px'
+        rootMargin: '0px 0px -50px 0px'
     });
     
     animatedElements.forEach(element => {
@@ -258,154 +210,80 @@ function initScrollAnimations() {
     });
 }
 
-// Enhanced mobile navigation
+// Mobile navigation toggle
 function initMobileNavigation() {
     const mobileToggle = document.querySelector('.mobile-menu-toggle');
     const navMenu = document.querySelector('.nav-menu');
     const navLinks = document.querySelectorAll('.nav-item');
-    const body = document.body;
     
     if (!mobileToggle || !navMenu) return;
     
     // Toggle mobile menu
-    mobileToggle.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
+    mobileToggle.addEventListener('click', () => {
+        mobileToggle.classList.toggle('active');
+        navMenu.classList.toggle('active');
         
-        const isActive = mobileToggle.classList.contains('active');
-        
-        if (isActive) {
-            closeMobileMenu();
+        // Prevent body scroll when menu is open
+        if (navMenu.classList.contains('active')) {
+            document.body.style.overflow = 'hidden';
         } else {
-            openMobileMenu();
+            document.body.style.overflow = 'auto';
         }
     });
-    
-    function openMobileMenu() {
-        mobileToggle.classList.add('active');
-        navMenu.classList.add('active');
-        body.style.overflow = 'hidden';
-        
-        // Add ARIA attributes for accessibility
-        mobileToggle.setAttribute('aria-expanded', 'true');
-        navMenu.setAttribute('aria-hidden', 'false');
-    }
-    
-    function closeMobileMenu() {
-        mobileToggle.classList.remove('active');
-        navMenu.classList.remove('active');
-        body.style.overflow = '';
-        
-        // Update ARIA attributes
-        mobileToggle.setAttribute('aria-expanded', 'false');
-        navMenu.setAttribute('aria-hidden', 'true');
-    }
     
     // Close menu when clicking nav links
     navLinks.forEach(link => {
         link.addEventListener('click', () => {
-            closeMobileMenu();
+            mobileToggle.classList.remove('active');
+            navMenu.classList.remove('active');
+            document.body.style.overflow = 'auto';
         });
     });
     
-    // Close menu when clicking outside (with improved detection)
+    // Close menu when clicking outside
     document.addEventListener('click', (e) => {
-        const isClickInsideNav = navMenu.contains(e.target) || mobileToggle.contains(e.target);
-        
-        if (!isClickInsideNav && navMenu.classList.contains('active')) {
-            closeMobileMenu();
+        if (!navMenu.contains(e.target) && !mobileToggle.contains(e.target)) {
+            mobileToggle.classList.remove('active');
+            navMenu.classList.remove('active');
+            document.body.style.overflow = 'auto';
         }
-    });
-    
-    // Close menu on escape key
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && navMenu.classList.contains('active')) {
-            closeMobileMenu();
-            mobileToggle.focus(); // Return focus to toggle button
-        }
-    });
-    
-    // Handle orientation change
-    window.addEventListener('orientationchange', () => {
-        setTimeout(() => {
-            if (window.innerWidth > 768 && navMenu.classList.contains('active')) {
-                closeMobileMenu();
-            }
-        }, 100);
     });
 }
 
-// Enhanced smooth scrolling
+// Smooth scrolling for navigation
 function initSmoothScrolling() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
-            const targetId = this.getAttribute('href');
-            const target = document.querySelector(targetId);
-            
+            const target = document.querySelector(this.getAttribute('href'));
             if (target) {
-                const navbar = document.getElementById('navbar');
-                const navHeight = navbar ? navbar.offsetHeight : 0;
-                const targetPosition = target.offsetTop - navHeight - 20;
+                const navHeight = document.getElementById('navbar').offsetHeight;
+                const targetPosition = target.offsetTop - navHeight;
                 
-                // Use native smooth scrolling with fallback
-                if ('scrollBehavior' in document.documentElement.style) {
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
-                } else {
-                    // Fallback for older browsers
-                    animateScroll(targetPosition, 800);
-                }
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
             }
         });
     });
 }
 
-// Fallback smooth scroll animation
-function animateScroll(targetPosition, duration) {
-    const startPosition = window.pageYOffset;
-    const distance = targetPosition - startPosition;
-    let startTime = null;
-    
-    function animation(currentTime) {
-        if (startTime === null) startTime = currentTime;
-        const timeElapsed = currentTime - startTime;
-        const run = easeInOutQuad(timeElapsed, startPosition, distance, duration);
-        window.scrollTo(0, run);
-        if (timeElapsed < duration) requestAnimationFrame(animation);
-    }
-    
-    function easeInOutQuad(t, b, c, d) {
-        t /= d / 2;
-        if (t < 1) return c / 2 * t * t + b;
-        t--;
-        return -c / 2 * (t * (t - 2) - 1) + b;
-    }
-    
-    requestAnimationFrame(animation);
-}
-
-// Enhanced navbar scroll effect with better performance
+// Navbar background on scroll with throttling
 function initNavbarScroll() {
     const navbar = document.getElementById('navbar');
     if (!navbar) return;
     
     let ticking = false;
-    let lastScrollY = window.scrollY;
     
     function updateNavbar() {
-        const scrollY = window.scrollY;
-        const scrollThreshold = 50;
-        
-        if (scrollY > scrollThreshold) {
-            navbar.classList.add('scrolled');
+        if (window.scrollY > 50) {
+            navbar.style.background = 'rgba(10, 10, 30, 0.98)';
+            navbar.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.3)';
         } else {
-            navbar.classList.remove('scrolled');
+            navbar.style.background = 'rgba(10, 10, 30, 0.95)';
+            navbar.style.boxShadow = 'none';
         }
-        
-        lastScrollY = scrollY;
         ticking = false;
     }
     
@@ -416,72 +294,32 @@ function initNavbarScroll() {
         }
     }
     
-    // Use passive listener for better performance
     window.addEventListener('scroll', requestTick, { passive: true });
-    
-    // Initial check
-    updateNavbar();
 }
 
-// Enhanced project interactions for touch devices
+// Project cards hover effect on mobile (touch)
 function initProjectInteractions() {
-    const projectCards = document.querySelectorAll('.project-card');
-    const contactCards = document.querySelectorAll('.contact-card');
-    
     if (!isTouch) return;
     
-    // Add touch interactions for project cards
-    projectCards.forEach(card => {
-        let touchTimeout;
-        
-        card.addEventListener('touchstart', () => {
-            card.classList.add('touch-active');
-            clearTimeout(touchTimeout);
-        }, { passive: true });
-        
-        card.addEventListener('touchend', () => {
-            touchTimeout = setTimeout(() => {
-                card.classList.remove('touch-active');
-            }, 300);
-        }, { passive: true });
-        
-        card.addEventListener('touchcancel', () => {
-            card.classList.remove('touch-active');
-            clearTimeout(touchTimeout);
-        }, { passive: true });
-    });
+    const projectCards = document.querySelectorAll('.project-card');
     
-    // Add touch interactions for contact cards
-    contactCards.forEach(card => {
-        let touchTimeout;
-        
+    projectCards.forEach(card => {
         card.addEventListener('touchstart', () => {
             card.classList.add('touch-active');
-            clearTimeout(touchTimeout);
         }, { passive: true });
         
         card.addEventListener('touchend', () => {
-            touchTimeout = setTimeout(() => {
+            setTimeout(() => {
                 card.classList.remove('touch-active');
             }, 300);
-        }, { passive: true });
-        
-        card.addEventListener('touchcancel', () => {
-            card.classList.remove('touch-active');
-            clearTimeout(touchTimeout);
         }, { passive: true });
     });
 }
 
-// Enhanced performance optimization
+// Optimize animations based on device capabilities
 function optimizeAnimations() {
-    // Check for reduced motion preference
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    
-    if (prefersReducedMotion) {
-        animationsEnabled = false;
-        particlesEnabled = false;
-        
+    // Reduce motion for users who prefer it
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         // Disable complex animations
         const style = document.createElement('style');
         style.textContent = `
@@ -489,48 +327,21 @@ function optimizeAnimations() {
                 animation-duration: 0.01ms !important;
                 animation-iteration-count: 1 !important;
                 transition-duration: 0.01ms !important;
-                scroll-behavior: auto !important;
-            }
-            .lightning, .fire-drop, .particle {
-                display: none !important;
             }
         `;
         document.head.appendChild(style);
         return;
     }
     
-    // Performance-based optimizations
-    if (isLowEnd) {
-        particlesEnabled = false;
+    // Disable intensive animations on low-end devices
+    if (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4) {
         document.body.classList.add('low-performance');
-    }
-    
-    // Battery API check (if available)
-    if ('getBattery' in navigator) {
-        navigator.getBattery().then(battery => {
-            if (battery.level < 0.2 && !battery.charging) {
-                // Low battery - reduce animations
-                animationsEnabled = false;
-                particlesEnabled = false;
-                document.body.classList.add('low-performance');
-            }
-        });
-    }
-    
-    // Connection quality check (if available)
-    if ('connection' in navigator) {
-        const connection = navigator.connection;
-        if (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g') {
-            animationsEnabled = false;
-            particlesEnabled = false;
-        }
     }
 }
 
-// Enhanced lazy loading for animations
+// Lazy load animations
 function initLazyAnimations() {
-    if (!window.IntersectionObserver) return;
-    
+    // Only start intensive animations when elements are visible
     const options = {
         threshold: 0.1,
         rootMargin: '0px 0px -10% 0px'
@@ -539,112 +350,178 @@ function initLazyAnimations() {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                const element = entry.target;
-                
                 // Start animations for visible sections
-                if (element.id === 'welcome-section' && particlesEnabled) {
-                    // Delay particle creation slightly
-                    setTimeout(() => {
+                if (entry.target.id === 'welcome-section') {
+                    // Welcome section is visible, start particles if not mobile
+                    if (!isMobile) {
                         createParticles();
-                    }, 500);
+                    }
                 }
-                
-                // Trigger other section-specific animations
-                if (element.id === 'projects') {
-                    triggerProjectAnimations();
-                }
-                
-                observer.unobserve(element);
             }
         });
     }, options);
     
     // Observe key sections
     const sections = document.querySelectorAll('section');
-    sections.forEach(section => {
-        if (section.id) {
-            observer.observe(section);
-        }
-    });
+    sections.forEach(section => observer.observe(section));
 }
 
-// Trigger project-specific animations
-function triggerProjectAnimations() {
-    const projectCards = document.querySelectorAll('.project-card');
-    projectCards.forEach((card, index) => {
-        setTimeout(() => {
-            card.style.animationPlayState = 'running';
-        }, index * 100);
-    });
-}
-
-// Enhanced resize handling
+// Handle resize events
 function handleResize() {
     let resizeTimer;
-    let lastWidth = window.innerWidth;
-    
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(() => {
-            const currentWidth = window.innerWidth;
+            // Recalculate any position-dependent elements
+            const navMenu = document.querySelector('.nav-menu');
+            const mobileToggle = document.querySelector('.mobile-menu-toggle');
             
-            // Only process if width actually changed (avoid mobile scroll resize events)
-            if (Math.abs(currentWidth - lastWidth) > 50) {
-                const navMenu = document.querySelector('.nav-menu');
-                const mobileToggle = document.querySelector('.mobile-menu-toggle');
-                
-                // Close mobile menu on resize to desktop
-                if (currentWidth > 768 && navMenu && navMenu.classList.contains('active')) {
-                    navMenu.classList.remove('active');
-                    if (mobileToggle) mobileToggle.classList.remove('active');
-                    document.body.style.overflow = '';
-                }
-                
-                lastWidth = currentWidth;
+            // Close mobile menu on resize to desktop
+            if (window.innerWidth > 768 && navMenu && navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+                if (mobileToggle) mobileToggle.classList.remove('active');
+                document.body.style.overflow = 'auto';
             }
         }, 250);
     });
 }
 
-// Enhanced performance monitoring
+// Performance monitoring
 function monitorPerformance() {
-    if (!window.requestAnimationFrame || !performance) return;
-    
+    // Check if device can handle intensive animations
     let frameCount = 0;
     let startTime = performance.now();
-    let lowPerformanceDetected = false;
     
     function countFrames() {
         frameCount++;
         const currentTime = performance.now();
         
-        if (currentTime - startTime > 2000) { // Monitor for 2 seconds
+        if (currentTime - startTime > 1000) {
             const fps = Math.round((frameCount * 1000) / (currentTime - startTime));
             
-            // If FPS is consistently low, reduce animations
-            if (fps < 25 && !lowPerformanceDetected) {
-                lowPerformanceDetected = true;
-                animationsEnabled = false;
-                particlesEnabled = false;
+            // If FPS is too low, reduce animations
+            if (fps < 30) {
                 document.body.classList.add('low-performance');
-                console.log('Low performance detected, reducing animations. FPS:', fps);
+                console.log('Low performance detected, reducing animations');
             }
             
-            return; // Stop monitoring after first check
+            return; // Stop monitoring after first second
         }
         
         requestAnimationFrame(countFrames);
     }
     
-    // Start monitoring after a short delay
-    setTimeout(() => {
-        requestAnimationFrame(countFrames);
-    }, 1000);
+    requestAnimationFrame(countFrames);
 }
+
+// Initialize everything when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Core functionality
+    initMobileNavigation();
+    initSmoothScrolling();
+    initNavbarScroll();
+    handleResize();
+    
+    // Animations (with performance considerations)
+    optimizeAnimations();
+    monitorPerformance();
+    
+    // Initialize visual effects
+    createLightning();
+    initGlitchEffect();
+    initFireDrops();
+    initProjectInteractions();
+    
+    // Scroll-based animations
+    initScrollAnimations();
+    animateSkills();
+    initLazyAnimations();
+    
+    // Add CSS for touch interactions
+    if (isTouch) {
+        const style = document.createElement('style');
+        style.textContent = `
+            .project-card.touch-active,
+            .contact-card.touch-active {
+                transform: translateY(-10px);
+                box-shadow: 0 10px 30px rgba(0, 240, 255, 0.2);
+            }
+            
+            .contact-card.touch-active {
+                background: rgba(0, 240, 255, 0.1);
+            }
+            
+            /* Improve touch targets */
+            .nav-item,
+            .project-btn,
+            .contact-btn,
+            .talk-btn {
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            /* Disable hover effects on touch devices */
+            @media (hover: none) {
+                .project-card:hover,
+                .contact-card:hover,
+                .nav-item:hover,
+                .footer-social a:hover {
+                    transform: none;
+                    box-shadow: initial;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+    
+    // Add performance-based styles
+    const performanceStyle = document.createElement('style');
+    performanceStyle.textContent = `
+        .low-performance .lightning,
+        .low-performance .fire-drop,
+        .low-performance .particle {
+            display: none;
+        }
+        
+        .low-performance .digital-bg {
+            animation: none;
+            opacity: 0.8;
+        }
+        
+        .low-performance .glitch-text {
+            animation: none;
+        }
+    `;
+    document.head.appendChild(performanceStyle);
+    
+    console.log('Portfolio initialized successfully');
+});
+
+// Service worker registration for PWA support (optional)
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+            .then(registration => {
+                console.log('SW registered: ', registration);
+            })
+            .catch(registrationError => {
+                console.log('SW registration failed: ', registrationError);
+            });
+    });
+}
+
+// Error handling
+window.addEventListener('error', (e) => {
+    console.error('An error occurred:', e.error);
+    // Fallback to basic functionality if animations fail
+    document.body.classList.add('fallback-mode');
+});
 
 // Utility functions
 const utils = {
-    // Enhanced throttle function
+    // Throttle function for performance
     throttle: (func, limit) => {
         let inThrottle;
         return function() {
@@ -658,12 +535,11 @@ const utils = {
         };
     },
     
-    // Enhanced debounce function
+    // Debounce function for resize events
     debounce: (func, wait, immediate) => {
         let timeout;
         return function() {
-            const context = this;
-            const args = arguments;
+            const context = this, args = arguments;
             const later = function() {
                 timeout = null;
                 if (!immediate) func.apply(context, args);
@@ -675,224 +551,37 @@ const utils = {
         };
     },
     
-    // Check if element is in viewport with offset
-    isInViewport: (element, offset = 0) => {
-        if (!element) return false;
+    // Check if element is in viewport
+    isInViewport: (element) => {
         const rect = element.getBoundingClientRect();
-        const windowHeight = window.innerHeight || document.documentElement.clientHeight;
-        const windowWidth = window.innerWidth || document.documentElement.clientWidth;
-        
         return (
-            rect.top >= -offset &&
-            rect.left >= -offset &&
-            rect.bottom <= windowHeight + offset &&
-            rect.right <= windowWidth + offset
+            rect.top >= 0 &&
+            rect.left >= 0 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
         );
     },
     
-    // Enhanced counter animation
+    // Animate counter numbers
     animateCounter: (element, target, duration = 2000) => {
-        if (!element) return;
-        
         let startTime = null;
         const start = parseInt(element.textContent) || 0;
-        const difference = target - start;
         
         function animation(currentTime) {
             if (startTime === null) startTime = currentTime;
             const timeElapsed = currentTime - startTime;
             const progress = Math.min(timeElapsed / duration, 1);
             
-            // Use easing function for smoother animation
-            const easedProgress = 1 - Math.pow(1 - progress, 3);
-            const current = Math.floor(easedProgress * difference + start);
-            
-            element.textContent = current;
+            element.textContent = Math.floor(progress * (target - start) + start);
             
             if (progress < 1) {
                 requestAnimationFrame(animation);
-            } else {
-                element.textContent = target; // Ensure final value is exact
             }
         }
         
         requestAnimationFrame(animation);
-    },
-    
-    // Device detection utilities
-    isMobileDevice: () => isMobile,
-    isTouchDevice: () => isTouch,
-    isLowEndDevice: () => isLowEnd,
-    
-    // Performance utilities
-    reduceAnimations: () => {
-        animationsEnabled = false;
-        particlesEnabled = false;
-        document.body.classList.add('low-performance');
     }
 };
 
-// Main initialization function
-function initPortfolio() {
-    console.log('Initializing portfolio...', {
-        isMobile,
-        isTouch,
-        isLowEnd,
-        animationsEnabled,
-        particlesEnabled
-    });
-    
-    // Core functionality (always load these)
-    initMobileNavigation();
-    initSmoothScrolling();
-    initNavbarScroll();
-    handleResize();
-    
-    // Performance optimizations
-    optimizeAnimations();
-    monitorPerformance();
-    
-    // Visual effects (conditionally loaded)
-    if (animationsEnabled) {
-        createLightning();
-        initGlitchEffect();
-        initFireDrops();
-    }
-    
-    // Touch interactions
-    initProjectInteractions();
-    
-    // Scroll-based animations
-    initScrollAnimations();
-    animateSkills();
-    initLazyAnimations();
-    
-    // Add dynamic styles for better mobile experience
-    addMobileOptimizedStyles();
-    
-    console.log('Portfolio initialized successfully');
-}
-
-// Add mobile-optimized styles dynamically
-function addMobileOptimizedStyles() {
-    const style = document.createElement('style');
-    
-    let mobileStyles = '';
-    
-    if (isTouch) {
-        mobileStyles += `
-            .project-card.touch-active,
-            .contact-card.touch-active {
-                transform: translateY(-5px) scale(0.98);
-                box-shadow: 0 8px 25px rgba(0, 240, 255, 0.3);
-            }
-            
-            .nav-item.touch-active {
-                background: rgba(0, 240, 255, 0.1);
-                transform: scale(0.95);
-            }
-            
-            /* Improve touch targets */
-            .nav-item,
-            .project-btn,
-            .contact-btn,
-            .talk-btn {
-                min-height: 44px;
-                min-width: 44px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                touch-action: manipulation;
-            }
-            
-            /* Disable hover effects on touch devices */
-            @media (hover: none) and (pointer: coarse) {
-                .project-card:hover,
-                .contact-card:hover,
-                .nav-item:hover,
-                .footer-social a:hover {
-                    transform: none;
-                    box-shadow: initial;
-                    background: initial;
-                    color: initial;
-                }
-                
-                .nav-item:hover::after {
-                    width: 0;
-                }
-                
-                .nav-item:hover::before {
-                    opacity: 0;
-                }
-            }
-        `;
-    }
-    
-    if (isLowEnd || !animationsEnabled) {
-        mobileStyles += `
-            .low-performance .lightning,
-            .low-performance .fire-drop,
-            .low-performance .particle {
-                display: none !important;
-            }
-            
-            .low-performance .digital-bg {
-                animation: none;
-                opacity: 0.8;
-            }
-            
-            .low-performance .glitch-text {
-                animation: none;
-            }
-            
-            .low-performance * {
-                transition-duration: 0.1s !important;
-                animation-duration: 0.3s !important;
-            }
-        `;
-    }
-    
-    style.textContent = mobileStyles;
-    document.head.appendChild(style);
-}
-
-// Initialize everything when DOM is loaded
-document.addEventListener('DOMContentLoaded', initPortfolio);
-
-// Service worker registration (optional)
-if ('serviceWorker' in navigator && !isMobile) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
-            .then(registration => {
-                console.log('SW registered: ', registration);
-            })
-            .catch(registrationError => {
-                console.log('SW registration failed: ', registrationError);
-            });
-    });
-}
-
-// Enhanced error handling
-window.addEventListener('error', (e) => {
-    console.error('An error occurred:', e.error);
-    // Fallback to basic functionality if animations fail
-    animationsEnabled = false;
-    particlesEnabled = false;
-    document.body.classList.add('fallback-mode');
-});
-
-// Handle visibility change (for performance)
-document.addEventListener('visibilitychange', () => {
-    if (document.hidden) {
-        // Page is hidden, reduce activity
-        animationsEnabled = false;
-    } else {
-        // Page is visible again, restore animations if they were originally enabled
-        if (!isLowEnd && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            animationsEnabled = true;
-        }
-    }
-});
-
-// Export utils for external use
+// Export utils for potential external use
 window.portfolioUtils = utils;
