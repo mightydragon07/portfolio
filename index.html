@@ -13,24 +13,112 @@
     <div class="electric-particles"></div>
     <div class="thunder-overlay"></div>
     
-    <nav id="navbar">
+    <!-- Desktop Navigation -->
+    <nav id="navbar" class="desktop-nav">
         <div class="nav-pill">
-            <button class="mobile-menu-toggle" aria-label="Toggle navigation menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            
-            <div class="nav-menu">
-                <ul class="nav-links">
-                    <li><a href="#welcome-section" class="nav-item"><i class="fas fa-home"></i> <span>Home</span></a></li>
-                    <li><a href="#about" class="nav-item"><i class="fas fa-user"></i> <span>About</span></a></li>
-                    <li><a href="#projects" class="nav-item"><i class="fas fa-code"></i> <span>Projects</span></a></li>
-                    <li><a href="#contact" class="nav-item"><i class="fas fa-envelope"></i> <span>Contact</span></a></li>
-                </ul>
+            <div class="nav-links">
+                <a href="#welcome-section" class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="#about" class="nav-item">
+                    <i class="fas fa-user"></i>
+                    <span>About</span>
+                </a>
+                <a href="#projects" class="nav-item">
+                    <i class="fas fa-code"></i>
+                    <span>Projects</span>
+                </a>
+                <a href="#contact" class="nav-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>Contact</span>
+                </a>
             </div>
         </div>
     </nav>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav">
+        <button class="hamburger-btn" id="hamburger-btn" aria-label="Toggle navigation menu">
+            <div class="hamburger-line"></div>
+            <div class="hamburger-line"></div>
+            <div class="hamburger-line"></div>
+        </button>
+        
+        <div class="mobile-overlay" id="mobile-overlay">
+            <div class="mobile-menu">
+                <div class="mobile-menu-header">
+                    <h2>Navigation</h2>
+                    <button class="close-btn" id="close-btn" aria-label="Close menu">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <div class="mobile-menu-content">
+                    <a href="#welcome-section" class="mobile-nav-item">
+                        <div class="mobile-nav-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <div class="mobile-nav-text">
+                            <span class="nav-title">Home</span>
+                            <span class="nav-subtitle">Welcome section</span>
+                        </div>
+                        <i class="fas fa-arrow-right nav-arrow"></i>
+                    </a>
+                    
+                    <a href="#about" class="mobile-nav-item">
+                        <div class="mobile-nav-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="mobile-nav-text">
+                            <span class="nav-title">About</span>
+                            <span class="nav-subtitle">Learn more about me</span>
+                        </div>
+                        <i class="fas fa-arrow-right nav-arrow"></i>
+                    </a>
+                    
+                    <a href="#projects" class="mobile-nav-item">
+                        <div class="mobile-nav-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="mobile-nav-text">
+                            <span class="nav-title">Projects</span>
+                            <span class="nav-subtitle">Featured work</span>
+                        </div>
+                        <i class="fas fa-arrow-right nav-arrow"></i>
+                    </a>
+                    
+                    <a href="#contact" class="mobile-nav-item">
+                        <div class="mobile-nav-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="mobile-nav-text">
+                            <span class="nav-title">Contact</span>
+                            <span class="nav-subtitle">Get in touch</span>
+                        </div>
+                        <i class="fas fa-arrow-right nav-arrow"></i>
+                    </a>
+                </div>
+                
+                <div class="mobile-menu-footer">
+                    <div class="mobile-social-links">
+                        <a href="https://github.com/mightydragon07" target="_blank" class="mobile-social-link">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/semika-anusara-13b00a214" target="_blank" class="mobile-social-link">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="mailto:semikaanusara3@gmail.com" class="mobile-social-link">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                        <a href="https://www.instagram.com/_z3m1ka_?igsh=dzh5bTd2eTV1MGtr&utm_source=qr" target="_blank" class="mobile-social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <section id="welcome-section">
         <div class="digital-bg"></div>
