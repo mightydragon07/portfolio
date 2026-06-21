@@ -1,0 +1,172 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --accent-rgb: 0 240 255;
+  --accent-2-rgb: 124 92 255;
+  --ink-rgb: 245 247 255;
+  --ink-muted-rgb: 167 176 214;
+  --accent-glow: rgba(0, 240, 255, 0.45);
+  --bg-1: #05060f;
+  --bg-2: #0a0e1f;
+  --glass: rgba(15, 20, 40, 0.5);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --grid-line: rgba(0, 240, 255, 0.06);
+}
+
+html.light {
+  --accent-rgb: 0 144 255;
+  --accent-2-rgb: 106 92 255;
+  --ink-rgb: 17 20 42;
+  --ink-muted-rgb: 85 95 138;
+  --accent-glow: rgba(0, 144, 255, 0.35);
+  --bg-1: #eef3fb;
+  --bg-2: #e3ecfa;
+  --glass: rgba(255, 255, 255, 0.55);
+  --glass-border: rgba(17, 20, 42, 0.08);
+  --grid-line: rgba(0, 90, 200, 0.06);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-1);
+  color: rgb(var(--ink-rgb));
+  transition: background-color 0.5s ease, color 0.5s ease;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Ambient animated backdrop: soft gradient blobs + grid */
+.ambient-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(circle at 18% 22%, var(--accent-glow) 0%, transparent 42%),
+    radial-gradient(circle at 82% 68%, rgb(var(--accent-2-rgb) / 0.28) 0%, transparent 45%),
+    linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 100%);
+  transition: background 0.6s ease;
+}
+
+.ambient-grid {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(circle at 50% 0%, black 0%, transparent 75%);
+}
+
+/* Glass surfaces */
+.glass {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+html.light .glass {
+  box-shadow:
+    0 8px 32px rgba(40, 70, 130, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.glass-pill {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+}
+
+/* Liquid refraction sheen that sweeps across glass cards on hover */
+.glass-sheen {
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-sheen::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 40%;
+  height: 200%;
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.16) 45%,
+    rgba(255, 255, 255, 0.28) 50%,
+    rgba(255, 255, 255, 0.16) 55%,
+    transparent 100%
+  );
+  transform: rotate(8deg) translateX(0);
+  transition: transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+  pointer-events: none;
+}
+
+.glass-sheen:hover::before {
+  transform: rotate(8deg) translateX(220%);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(
+    120deg,
+    rgb(var(--accent-rgb)),
+    rgb(var(--accent-2-rgb))
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Glow ring used for primary buttons */
+.glow-ring {
+  box-shadow: 0 0 0 1px var(--glass-border), 0 0 24px var(--accent-glow);
+}
+
+/* View Transition: liquid circular reveal driven by ThemeProvider */
+::view-transition-old(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--glass-border);
+  border-radius: 8px;
+}
