@@ -24,7 +24,10 @@ export default function Cursor() {
       // simple easing to smooth small jumps while keeping it responsive
       state.x += (state.tx - state.x) * 0.35;
       state.y += (state.ty - state.y) * 0.35;
-      el.style.transform = `translate3d(${state.x - 10}px, ${state.y - 10}px, 0)`;
+      const node = ref.current;
+      if (node) {
+        node.style.transform = `translate3d(${state.x - 10}px, ${state.y - 10}px, 0)`;
+      }
       rafId = requestAnimationFrame(render);
     }
 
