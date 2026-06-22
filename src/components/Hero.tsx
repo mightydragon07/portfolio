@@ -48,25 +48,7 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      {/* Bottom corner details */}
-      <div className="relative z-10 flex items-center justify-between">
-        <motion.a
-          href="#about"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, delay: 1.1 }}
-          whileHover={{ scale: 1.08 }}
-          aria-label="Scroll to about section"
-          className="glass flex h-12 w-12 items-center justify-center rounded-full text-accent"
-        >
-          <motion.span
-            animate={{ y: [0, 4, 0] }}
-            transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <ArrowDown size={18} />
-          </motion.span>
-        </motion.a>
-      </div>
+      {/* Bottom corner details removed: scroll-down icon intentionally omitted */}
     </section>
   );
 }
